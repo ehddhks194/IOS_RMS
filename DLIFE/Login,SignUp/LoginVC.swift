@@ -18,7 +18,6 @@ class LoginVC: UIViewController {
     var facebookBtn = MockUpView(frame: .zero, name: "facebookBtn")
     var googleBtn = MockUpView(frame: .zero, name: "googleBtn")
     var loginBtn = MockUpView(frame: .zero, name: "loginBtn", ifBtn: UINavigationController(rootViewController: MyPageVC()))
-    var temp: Int?
     var signinBtn = MockUpView(frame: .zero, name: "signinBtn", ifBtn: SignUpVC())
     
     override func viewDidLoad() {

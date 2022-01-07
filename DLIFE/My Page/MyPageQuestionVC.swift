@@ -10,8 +10,7 @@ import SnapKit
 
 class MyPageQuestionVC: UIViewController {
     
-    var answerMessage = 1
-    var questionMessage = 0
+    var countMessage = 1
     let MyPageMessageCollectionView: UICollectionView = {
         let fl = UICollectionViewFlowLayout()
         fl.scrollDirection = .vertical
@@ -34,8 +33,7 @@ class MyPageQuestionVC: UIViewController {
     }
     
     private func collectionViewSetting(){
-        answerMessage = 3
-        questionMessage = 3
+        countMessage = 5
         view.addSubview(MyPageMessageCollectionView)
         MyPageMessageCollectionView.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -43,7 +41,7 @@ class MyPageQuestionVC: UIViewController {
         }
         MyPageMessageCollectionView.register(MypageQuestionCollectionViewCell.self, forCellWithReuseIdentifier: "MypageQuestionCollectionViewCell")
         MyPageMessageCollectionView.register(MypageAnswerCollectionViewCell.self, forCellWithReuseIdentifier: "MypageAnswerCollectionViewCell")
-
+        
         MyPageMessageCollectionView.delegate = self
         MyPageMessageCollectionView.dataSource = self
     }
@@ -54,28 +52,24 @@ class MyPageQuestionVC: UIViewController {
 extension MyPageQuestionVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        if section == 0 {
-            return self.answerMessage
-        } else {
-            return self.questionMessage
-        }
+        return countMessage
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
+        if indexPath.row % 2 == 0 {
             guard let cell = MyPageMessageCollectionView.dequeueReusableCell(withReuseIdentifier: "MypageQuestionCollectionViewCell", for: indexPath) as? MypageQuestionCollectionViewCell else {return MypageQuestionCollectionViewCell()}
             cell.backgroundColor = .blue
             return cell
         } else {
             guard let cell = MyPageMessageCollectionView.dequeueReusableCell(withReuseIdentifier: "MypageAnswerCollectionViewCell", for: indexPath) as? MypageAnswerCollectionViewCell else {return MypageAnswerCollectionViewCell()}
-            cell.backgroundColor = .white
+            cell.backgroundColor = .red
             return cell
         }
     }
-       
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 0 {
-            return CGSize(width: view.bounds.width, height: 300)
+        if indexPath.row % 2 == 0 {
+            return CGSize(width: view.bounds.width, height: 450)
         } else {
             return CGSize(width: view.bounds.width, height: 200)
         }
